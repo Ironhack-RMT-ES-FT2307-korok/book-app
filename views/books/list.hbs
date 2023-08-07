@@ -1,0 +1,16 @@
+
+<div>
+
+  <h3>Lista de libros</h3>
+
+
+  {{#each this.allBooks}}
+
+    <li>
+      <a href="/book/{{this._id}}/details">{{this.title}}</a>
+    </li>
+
+  {{/each}}
+
+
+</div>

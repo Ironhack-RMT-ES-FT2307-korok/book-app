@@ -1,0 +1,23 @@
+<div>
+
+  <h3>Aqui los detalles del libro</h3>
+
+
+  <div>
+
+    <h4>{{this.oneBook.title}}</h4>
+    <p>Descripción: {{this.oneBook.description}}</p>
+    <p>Autor: {{this.oneBook.author}}</p>
+
+    <a href="/book/{{this.oneBook._id}}/update">
+      <button>Ir a Actualizar</button>
+    </a>
+
+    <form action="/book/{{this.oneBook._id}}/delete" method="post">
+      <button type="submit">Borrar Libro</button>
+    </form>
+
+
+  </div>
+
+</div>
