@@ -4,19 +4,25 @@
 
   <form action="/author/create" method="post">
 
-      <label for="name">Nombre</label>
-      <input type="text" name="name" value="{{this.previousNameValue}}">
-      <br>
-      <label for="country">Pais</label>
-      <input type="text" name="country" value="{{previousCountryValue}}">
-      <br>
-      <label for="yearBorn">Año</label>
-      <input type="number" name="yearBorn" value="{{previousYearnBornValue}}">
-      <br>
-      <button>Agregar</button>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input class="form-control" type="text" name="name" value="{{this.previousNameValue}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="country" class="form-label">Pais</label>
+        <input class="form-control" type="text" name="country" value="{{previousCountryValue}}">
+      </div>
+
+      <div class="mb-3">
+        <label for="yearBorn" class="form-label">Año</label>
+        <input class="form-control" type="number" name="yearBorn" value="{{previousYearnBornValue}}">
+      </div>
+
+      <button class="btn btn-outline-info add-btn">Agregar</button>
 
       {{#if this.errorMessage}}
-        <p>{{this.errorMessage}}</p>
+        <p class="alert alert-danger">{{this.errorMessage}}</p>
       {{/if}}
 
   </form>

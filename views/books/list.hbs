@@ -3,14 +3,15 @@
 
   <h3>Lista de libros</h3>
 
+  <div class="list-group">
 
-  {{#each this.allBooks}}
+    {{#each this.allBooks}}
 
-    <li>
-      <a href="/book/{{this._id}}/details">{{this.title}}</a>
-    </li>
+      <a class="list-group-item list-group-item-action" href="/book/{{this._id}}/details">{{this.title}}</a>
 
-  {{/each}}
+    {{/each}}
+
+  </div>
 
 
 </div>

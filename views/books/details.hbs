@@ -3,23 +3,28 @@
   <h3>Aqui los detalles del libro</h3>
 
 
-  <div>
+  <div class="card">
 
-    <h4>{{this.oneBook.title}}</h4>
-    <p>Descripción: {{this.oneBook.description}}</p>
-    <p>Autores: 
-    {{#each this.oneBook.author}}
-      {{this.name}} nacido en {{this.country}},
-    {{/each}}
-    </p>
+    <div class="card-body">
+      <h4 class="card-title">{{this.oneBook.title}}</h4>
+      <p class="card-text">Descripción: {{this.oneBook.description}}</p>
+      <p class="card-text">Autores: 
+      {{#each this.oneBook.author}}
+        {{this.name}} nacido en {{this.country}},
+      {{/each}}
+      </p>
+    </div>
 
-    <a href="/book/{{this.oneBook._id}}/update">
-      <button>Ir a Actualizar</button>
-    </a>
+    <div class="d-flex justify-content-center">
+      <a href="/book/{{this.oneBook._id}}/update">
+        <button class="btn btn-warning">Ir a Actualizar</button>
+      </a>
 
-    <form action="/book/{{this.oneBook._id}}/delete" method="post">
-      <button type="submit">Borrar Libro</button>
-    </form>
+      <form action="/book/{{this.oneBook._id}}/delete" method="post">
+        <button class="btn btn-danger" type="submit">Borrar Libro</button>
+      </form>
+    </div>
+
 
 
   </div>
