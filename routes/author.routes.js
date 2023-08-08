@@ -18,14 +18,17 @@ router.post("/create", async (req, res, next) => {
     console.log("alguno de los campos está vacio")
     res.status(400).render("authors/add-form.hbs", {
       errorMessage: "Todos los campos son olbigatorios",
-      previousNameValue: req.body.name
+      previousNameValue: req.body.name // ejemplo de rellenar los campos con los valores previos
     })
     return; // esto detiene la funcion/ruta
   }
 
   if (req.body.name.length <= 3) {
     res.status(400).render("authors/add-form.hbs", {
-      errorMessage: "El nombre debe tener más de 3 letras"
+      errorMessage: "El nombre debe tener más de 3 letras",
+      previousNameValue: req.body.name,
+      previousCountryValue: req.body.country,
+      previousYearnBornValue: req.body.yearBorn
     })
     return; // esto detiene la funcion/ruta
   }
