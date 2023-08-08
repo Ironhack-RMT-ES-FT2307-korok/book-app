@@ -1,0 +1,25 @@
+<div>
+
+  <h3>Formulario de crear Autores</h3>
+
+  <form action="/author/create" method="post">
+
+      <label for="name">Nombre</label>
+      <input type="text" name="name" value="{{this.previousNameValue}}">
+      <br>
+      <label for="country">Pais</label>
+      <input type="text" name="country">
+      <br>
+      <label for="yearBorn">Año</label>
+      <input type="number" name="yearBorn">
+      <br>
+      <button>Agregar</button>
+
+      {{#if this.errorMessage}}
+        <p>{{this.errorMessage}}</p>
+      {{/if}}
+
+  </form>
+
+
+</div>

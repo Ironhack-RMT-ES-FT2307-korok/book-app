@@ -1,6 +1,6 @@
 <div>
 
-  <h3>Formulario de crear</h3>
+  <h3>Formulario de crear un libro</h3>
 
   <form action="/book/create-book" method="post">
 
@@ -15,7 +15,17 @@
     <br>
 
     <label for="author">Autor</label>
-    <input type="text" name="author">
+    {{!-- <input type="text" name="author"> --}}
+
+    <select name="author" multiple>
+
+      {{#each this.allAuthors}}
+
+        <option value="{{this._id}}">{{this.name}}</option>
+
+      {{/each}}
+
+    </select>
 
     <br>
 

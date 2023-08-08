@@ -4,7 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const Book = require("../models/Book.model.js")
-
+const Author = require("../models/Author.model.js")
 
 // GET "/book" => Busca los titulos de los libros y los renderiza en una vista
 router.get("/", (req, res, next) => {
@@ -33,23 +33,37 @@ router.get("/:bookId/details", (req, res, next) => {
   console.log(bookId)
 
   // Book.findOne({_id: bookId})
+  // busca el libro. Y en el lugar donde está la relacion a los autores, no me des el id. Dame TODA la info del autor relacionado
   Book.findById(bookId)
+  .populate("author") // donde haya una relacion, dame la info del documento.
   .then((response) => {
     console.log(response)
+    // si tengo el del autor, como busco los detalles del autor y los paso al render...
     res.render("books/details.hbs", {
-      oneBook: response
+      oneBook: response,
     })
   })
   .catch((err) => next(err))
-
-
 })
 
 
 // GET "/book/create" => renderizar al usuario una vista con formulario de crear
 router.get("/create", (req, res, next) => {
-  res.render("books/add-form.hbs")
+  // antes de renderizar la vista, busca todos los autores y los paso al render
+  Author.find()
+  .select({name: 1})
+  .then((response) => {
+
+    res.render("books/add-form.hbs", {
+      allAuthors: response
+    })
+  })
+  .catch((error) => {
+    next(error)
+  })
+
 })
+
 
 // POST "/book/create-book" => recibe la data del formulario, crea el libro y redirije al usuario.
 router.post("/create-book", (req, res, next) => {
@@ -82,15 +96,30 @@ router.post("/create-book", (req, res, next) => {
   // ...
 })
 
+
 // GET "/book/:bookId/update" => renderizar el formulario de edicion con los valores anteriores del libro
 router.get("/:bookId/update", async (req, res, next) => {
 
   try {
     
     const response = await Book.findById(req.params.bookId)
+    const allAuthors = await Author.find().select({name: 1})
+
+    const cloneAllAuthors = JSON.parse( JSON.stringify(allAuthors) )
+    // clonamos el arr porque los array de documentos, mongo a veces no nos permite modificarlos
+
+    console.log(response)
+    cloneAllAuthors.forEach((eachAuthor) => {
+      if (response.author.toString() === eachAuthor._id.toString()) {
+        console.log("el seleccionado es:", eachAuthor)
+        eachAuthor.isSelected = true;
+      }
+    })
+    console.log(cloneAllAuthors)
 
     res.render("books/edit-form.hbs", {
-      oneBook: response
+      oneBook: response,
+      allAuthors: cloneAllAuthors
     })
   } catch (error) {
     next(error)
@@ -118,6 +147,7 @@ router.post("/:bookId/update", (req, res, next) => {
   })
 
 })
+
 
 // POST "/book/:bookId/delete" => borrar un libro por su id y redirijir al usuario
 router.post("/:bookId/delete", async (req, res, next) => {
